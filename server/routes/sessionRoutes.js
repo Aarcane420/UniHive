@@ -11,11 +11,11 @@ const {
   getPopularSessions,
 } = require('../controllers/sessionController');
 
-const authMiddleware = require('../middleware/authMiddleware');
+const { protect: authMiddleware } = require('../middleware/authMiddleware');
 
+// Specific routes MUST come before parameterized routes
 // Public routes
 router.get('/', getSessions);
-router.get('/:id', getSessionById);
 router.get('/leaderboard/popular', getPopularSessions);
 
 // Private routes (require authentication)
@@ -26,5 +26,8 @@ router.get('/tutor/my-sessions', authMiddleware, getTutorSessions);
 router.get('/admin/pending', authMiddleware, getPendingSessions);
 router.put('/:id/approve', authMiddleware, approveSession);
 router.put('/:id/reject', authMiddleware, rejectSession);
+
+// Parameterized routes (must come LAST)
+router.get('/:id', getSessionById);
 
 module.exports = router;

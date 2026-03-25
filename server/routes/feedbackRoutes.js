@@ -7,14 +7,16 @@ const {
   getTopTutors,
 } = require('../controllers/feedbackController');
 
-const authMiddleware = require('../middleware/authMiddleware');
+const { protect: authMiddleware } = require('../middleware/authMiddleware');
 
 // Private route (require authentication)
 router.post('/', authMiddleware, submitFeedback);
 
-// Public routes
+// Public routes - specific paths first
+router.get('/leaderboard/top-tutors', getTopTutors);
+
+// Parameterized routes (must come after specific routes)
 router.get('/session/:sessionId', getSessionFeedback);
 router.get('/tutor/:tutorId', getTutorStats);
-router.get('/leaderboard/top-tutors', getTopTutors);
 
 module.exports = router;
