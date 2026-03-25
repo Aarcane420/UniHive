@@ -7,6 +7,9 @@ const app = express();
 
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const sessionRoutes = require('./routes/sessionRoutes');
+const registrationRoutes = require('./routes/registrationRoutes');
+const feedbackRoutes = require('./routes/feedbackRoutes');
 
 //middleware
 app.use(cors());
@@ -21,6 +24,9 @@ mongoose.connect(process.env.MONGO_URI)
 //routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/sessions', require('./routes/sessionRoutes'));
+app.use('/api/registrations', require('./routes/registrationRoutes'));
+app.use('/api/feedback', require('./routes/feedbackRoutes'));
 
 
 
